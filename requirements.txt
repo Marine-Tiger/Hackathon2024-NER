@@ -1,3 +1,4 @@
 numpy==1.26.4
 spacy==3.5.4
 coreferee==1.4.1
+fr-core-news-lg @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_lg-3.2.0/fr_core_news_lg-3.2.0-py3-none-any.whl#sha256=ec6139f61d34ec0fe6d0574c3cb1453f902bbf08ea0a9574f0ee838941e3029b
