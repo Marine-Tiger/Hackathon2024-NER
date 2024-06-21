@@ -2,12 +2,18 @@ import os
 import re
 import re
 import pydantic #permet de faire du typage en python
+import spacy
 
 class Chunk(pydantic.BaseModel):
     source: str
     date: str
     year: int
     text: str
+
+# nlp = spacy.load('fr_core_news_sm')
+# nlp.add_pipe(
+#     "xx_coref", config={"chunk_size": 2500, "chunk_overlap": 2, "device": 0}
+# )
 
 def process_document(text: str, file_path: str, documents: dict):
 
@@ -27,10 +33,11 @@ def process_document(text: str, file_path: str, documents: dict):
                 # print("====")
         else:
             if (len(processed_line) > 0 and current_year != 0):
-                chunk = Chunk(source=file_path, date=date_str, year=current_year, text=line)
+                chunk = Chunk(source=file_path, date=date_str, year=int(current_year), text=line)
                 if (not year in documents):
                         documents[year] = []
                 documents[year].append(chunk)
+    
 
 def get_corpus(data_folder: str):
     documents = {}
