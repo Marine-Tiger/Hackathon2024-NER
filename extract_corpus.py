@@ -32,10 +32,9 @@ def process_document(text: str, file_path: str, documents: dict):
                         documents[year] = []
                 documents[year].append(chunk)
 
-def get_corpus():
+def get_corpus(data_folder: str):
     documents = {}
 
-    data_folder = 'data'
     for filename in os.listdir(data_folder):
         file_path = os.path.join(data_folder, filename)
         if os.path.isfile(file_path): #On vérifie que c'est bien un fichier
