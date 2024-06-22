@@ -10,11 +10,6 @@ class Chunk(pydantic.BaseModel):
     year: int
     text: str
 
-# nlp = spacy.load('fr_core_news_sm')
-# nlp.add_pipe(
-#     "xx_coref", config={"chunk_size": 2500, "chunk_overlap": 2, "device": 0}
-# )
-
 def process_document(text: str, file_path: str, documents: dict):
 
     current_year = 0
@@ -51,3 +46,9 @@ def get_corpus(data_folder: str):
                 process_document(text, file_path, documents)
 
     return documents
+
+def get_coref_corpus():
+    import pickle
+    file = open('../coref_corpus.pckl','rb')
+    data = pickle.load(file)
+    return data
