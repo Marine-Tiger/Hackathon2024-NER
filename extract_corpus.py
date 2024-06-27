@@ -3,6 +3,8 @@ import re
 import re
 import pydantic #permet de faire du typage en python
 import spacy
+import re
+
 
 class Chunk(pydantic.BaseModel):
     source: str
@@ -10,6 +12,9 @@ class Chunk(pydantic.BaseModel):
     year: int
     text: str
 
+def process_line_for_title_detection(line: str):
+    new_text = re.sub(r'\d+e', '', line)
+    return new_text
 def process_document(text: str, file_path: str, documents: dict):
     # fonction qui prends un objet documents (type dict) et va le remplir de la facon suivante
     # on associe a chaque annee une liste de Chunk (portion de texte) -> {annee: [Chunk, Chunk, Chunk]}
@@ -22,7 +27,7 @@ def process_document(text: str, file_path: str, documents: dict):
     # on dit qu'a partir de maintenant toute les lignes suivantes concernent cette année (on met a jours current_year)
     # jusqu'a ce qu'on tombe sur une nouvelle ligne avec une annee...
     for line in text.split('\n'):
-        processed_line=line.strip().lower()
+        processed_line=process_line_for_title_detection(line.strip().lower()).strip().lower()
         if any([processed_line.startswith(seance_splitter) for seance_splitter in seance_splitters]) :
             date_str = processed_line[10:]
             re_year = re.search(r'\d{4}', date_str)
