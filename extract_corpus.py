@@ -1,10 +1,7 @@
 import os
 import re
-import re
 import pydantic #permet de faire du typage en python
 import spacy
-import re
-
 
 class Chunk(pydantic.BaseModel):
     source: str
